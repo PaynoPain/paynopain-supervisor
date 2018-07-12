@@ -1,12 +1,12 @@
 {
-  "name": "proletaryo-supervisor",
+  "name": "paynopain-supervisor",
   "version": "0.5.3",
-  "author": "proletaryo",
+  "author": "paynopain",
   "summary": "Module for installing supervisor in CentOS/AWS Linux/Debian/Ubuntu",
   "license": "Apache-2.0",
-  "source": "https://github.com/proletaryo/puppet-supervisor",
-  "project_page": "https://forge.puppetlabs.com/proletaryo/supervisor",
-  "issues_url": "https://github.com/proletaryo/puppet-supervisor/issues",
+  "source": "https://github.com/PaynoPain/paynopain-supervisor",
+  "project_page": "https://github.com/PaynoPain/paynopain-supervisor",
+  "issues_url": "https://github.com/PaynoPain/paynopain-supervisor",
   "tags": [
     "supervisor",
     "process control",
@@ -14,13 +14,6 @@
     "awslinux"
   ],
   "operatingsystem_support": [
-    {
-      "operatingsystem": "Amazon",
-      "operatingsystemrelease": [
-        "2014.09",
-        "2015.03"
-      ]
-    },
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [

@@ -1,43 +1,9 @@
 # Class: supervisor
-#
-# Usage:
-#   include supervisor
-#
-#   class { 'supervisor':
-#     version                 => '3.1.3',
-#     include_superlance      => false,
-#     enable_http_inet_server => true,
-#   }
 
-class supervisor (
-  $version                  = '3.1.3',
-  $include_superlance       = true,
-  $enable_http_inet_server  = false,
-) {
-
-  case $::osfamily {
-    redhat: {
-      if $::operatingsystem == 'Amazon' {
-        $pkg_setuptools = 'python26-pip'
-        $path_config    = '/etc'
-      }
-      else {
-        $pkg_setuptools = 'python-pip'
-        $path_config    = '/etc'
-      }
-    }
-    debian: {
-      $pkg_setuptools = 'python-pip'
-      $path_config    = '/etc'
-    }
-    default: { fail("ERROR: ${::osfamily} based systems are not supported!") }
-  }
-
-  package { $pkg_setuptools: ensure => installed, }
+class supervisor {
 
   package { 'supervisor':
-    ensure   => $version,
-    provider => 'pip'
+    ensure   => 'latest'
   }
 
   # install start/stop script
@@ -82,13 +48,4 @@ class supervisor (
     hasrestart => true,
     require    => File["${path_config}/supervisord.conf"],
   }
-
-  if $include_superlance {
-    package { 'superlance':
-      ensure   => installed,
-      provider => 'pip',
-      require  => Package['supervisor'],
-    }
-  }
-
 }
