@@ -75,7 +75,7 @@ define supervisor::program (
     require => Class['supervisor'],
   }
 
-  file { "/etc/supervisord.d/${name}.conf":
+  file { "/etc/supervisor/conf.d/${name}.conf":
     ensure  => $config_ensure,
     content => template('supervisor/program.conf.erb'),
     require => File["/var/log/supervisor/${name}"],
@@ -100,7 +100,7 @@ define supervisor::program (
     start    => "${path_bin}/supervisorctl start ${process_name}",
     status   => "${path_bin}/supervisorctl status | awk '/^${name}[: ]/{print \$2}' | grep '^RUNNING$'",
     stop     => "${path_bin}/supervisorctl stop ${process_name}",
-    require  => File["/etc/supervisord.d/${name}.conf"],
+    require  => File["/etc/supervisor/conf.d/${name}.conf"],
   }
 
   if ! defined(Exec['supervisor::update']) {
