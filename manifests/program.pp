@@ -96,16 +96,16 @@ define supervisor::program (
   service { "supervisor::${name}":
     ensure   => $service_ensure,
     provider => base,
-    restart  => "${path_bin}/supervisorctl restart ${process_name}",
-    start    => "${path_bin}/supervisorctl start ${process_name}",
-    status   => "${path_bin}/supervisorctl status | awk '/^${name}[: ]/{print \$2}' | grep '^RUNNING$'",
-    stop     => "${path_bin}/supervisorctl stop ${process_name}",
+    restart  => "/etc/init.d/supervisor restart",
+    start    => "/etc/init.d/supervisor start",
+    status   => "/etc/init.d/supervisor status | awk '/^${name}[: ]/{print \$2}' | grep '^RUNNING$'",
+    stop     => "/etc/init.d/supervisor stop",
     require  => File["/etc/supervisor/conf.d/${name}.conf"],
   }
 
   if ! defined(Exec['supervisor::update']) {
     exec { 'supervisor::update':
-      command     => "${path_bin}/supervisorctl update",
+      command     => "/etc/init.d/supervisor restart",
       logoutput   => on_failure,
       refreshonly => true,
       require     => Service['supervisord'],
