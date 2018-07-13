@@ -44,7 +44,6 @@ class supervisor {
 
   service { 'supervisord':
     ensure     => 'running',
-    enable     => true,
     hasrestart => true,
     require    => File["${path_config}/supervisord.conf"],
   }
