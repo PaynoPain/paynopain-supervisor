@@ -34,7 +34,7 @@ class supervisor {
     notify  => Service['supervisord'],
   }
 
-  file { "${path_config}/supervisord.d":
+  file { "/etc/supervisor/conf.d/":
     ensure  => directory,
     owner   => 'root',
     group   => 'root',
