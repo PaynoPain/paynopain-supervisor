@@ -37,6 +37,7 @@ class supervisor {
   file { "/etc/supervisor/conf.d/":
     ensure  => directory,
     purge   => true,
+    recurse => true,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
