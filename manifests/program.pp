@@ -97,16 +97,16 @@ define supervisor::program (
   service { "supervisor::${name}":
     ensure   => $service_ensure,
     provider => base,
-    restart  => "/etc/init.d/supervisor restart",
-    start    => "/etc/init.d/supervisor start",
+    restart  => '/etc/init.d/supervisor restart',
+    start    => '/etc/init.d/supervisor start',
     status   => $status,
-    stop     => "/etc/init.d/supervisor stop",
+    stop     => '/etc/init.d/supervisor stop',
     require  => File["/etc/supervisor/conf.d/${name}.conf"],
   }
 
   if ! defined(Exec['supervisor::update']) {
     exec { 'supervisor::update':
-      command     => "/etc/init.d/supervisor restart",
+      command     => '/etc/init.d/supervisor restart',
       logoutput   => on_failure,
       refreshonly => true,
       require     => Service['supervisord'],

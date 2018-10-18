@@ -24,7 +24,7 @@ class supervisor {
     require => Package['supervisor'],
   }
 
-  file { "/etc/supervisor/supervisord.conf":
+  file { '/etc/supervisor/supervisord.conf':
     ensure  => file,
     content => template('supervisor/supervisord.conf.erb'),
     owner   => 'root',
@@ -34,19 +34,19 @@ class supervisor {
     notify  => Service['supervisord'],
   }
 
-  file { "/etc/supervisor/conf.d/":
+  file { '/etc/supervisor/conf.d/':
     ensure  => directory,
     purge   => true,
     recurse => true,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    require => File["/etc/supervisor/supervisord.conf"],
+    require => File['/etc/supervisor/supervisord.conf'],
   }
 
   service { 'supervisord':
     ensure     => 'running',
     hasrestart => true,
-    require    => File["/etc/supervisor/supervisord.conf"],
+    require    => File['/etc/supervisor/supervisord.conf'],
   }
 }
