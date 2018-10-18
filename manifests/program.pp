@@ -37,7 +37,8 @@ define supervisor::program (
   $stderr_logfile_backups   = 10,
   $environment              = undef,
   $umask                    = undef,
-  $crashmail                = undef
+  $crashmail                = undef,
+  $status                   = "/etc/init.d/supervisor status | awk '/^${name}[: ]/{print \$2}' | grep '^RUNNING$'"
 ) {
   if ! defined(Class['supervisor']) { include supervisor }
 
@@ -98,7 +99,7 @@ define supervisor::program (
     provider => base,
     restart  => "/etc/init.d/supervisor restart",
     start    => "/etc/init.d/supervisor start",
-    status   => "/etc/init.d/supervisor status | awk '/^${name}[: ]/{print \$2}' | grep '^RUNNING$'",
+    status   => $status,
     stop     => "/etc/init.d/supervisor stop",
     require  => File["/etc/supervisor/conf.d/${name}.conf"],
   }
